@@ -7,24 +7,33 @@ var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l
 
 
 
-
+function compGuess() {
 var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+return computerGuess;
+}
+var holdGuess = compGuess();
+
 
   document.onkeyup = function(event) {
     var userGuess = event.key;
     
- if (userGuess !== computerGuess) {
+ if (userGuess !== holdGuess) {
     guessesLeft = guessesLeft - 1;
      userAttempts = userAttempts + event.key + ", ";
     }   
   
- if (userGuess === computerGuess) {
+ if (userGuess === holdGuess) {
       wins++;
+      holdGuess = compGuess();
+      guessesLeft = 12;
+      userAttempts = [];
   }
 
- if (guessesLeft === 0) {
+ if (guessesLeft <= 0) {
     losses++;
-    userGuess = [];
+    guessesLeft = 12;
+    userAttempts = [];
+    holdGuess = compGuess();
  }
       
   
